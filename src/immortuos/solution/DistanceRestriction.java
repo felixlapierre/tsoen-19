@@ -6,6 +6,7 @@ package immortuos.solution;
 
 import immortuos.utils.Point;
 import immortuos.utils.Survivor;
+import immortuos.utils.Event;
 
 /**
  * Restrict the distance of a notification to a survivor. This class follows the
@@ -27,9 +28,9 @@ public class DistanceRestriction implements Survivor {
         return wrapped.getLocation();
     }
 
-    public void notify(String message, Point point) {
-        if (Distance.get(wrapped.getLocation(), point) <= distance) {
-            wrapped.notify(message, point);
+    public void notify(Event event) {
+        if (Distance.get(wrapped.getLocation(), event.getLocation()) <= distance) {
+            wrapped.notify(event);
         }
     }
 }

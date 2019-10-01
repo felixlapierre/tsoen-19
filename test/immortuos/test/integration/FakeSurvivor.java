@@ -5,6 +5,7 @@
 package immortuos.test.integration;
 import immortuos.utils.Point;
 import immortuos.utils.Survivor;
+import immortuos.utils.Event;
 
 import java.util.ArrayList;
 
@@ -14,8 +15,7 @@ import java.util.ArrayList;
  */
 public class FakeSurvivor implements Survivor {
     private Point location;
-    public ArrayList<String> events;
-    public ArrayList<Point> eventLocations;
+    public ArrayList<Event> events;
     
     /**
      * Create a new Survivor
@@ -23,13 +23,11 @@ public class FakeSurvivor implements Survivor {
      */
     public FakeSurvivor(Point location) {
         this.location = new Point(location.x, location.y);
-        this.events = new ArrayList<String>();
-        this.eventLocations = new ArrayList<Point>();
+        this.events = new ArrayList<Event>();
     }
     
-    public void notify(String type, Point location) {
-        events.add(type);
-        eventLocations.add(new Point(location));
+    public void notify(Event event) {
+        events.add(event);
     }
     
     public Point getLocation() {

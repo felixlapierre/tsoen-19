@@ -2,6 +2,7 @@ package immortuos.solution;
 
 import immortuos.utils.Survivor;
 import immortuos.utils.Point;
+import immortuos.utils.Event;
 
 /**
  * The main application for the solution. Write your code here.
@@ -47,7 +48,7 @@ public class Application {
         }
         waterSubject.register(new DistanceRestriction(5.0, survivor));
 
-        survivor.notify("registered", survivor.getLocation());
+        survivor.notify(new Event("registered", survivor.getLocation()));
     }
 
     /**
@@ -57,20 +58,20 @@ public class Application {
      * @param eventType The type of the event.
      * @param eventLocation The location at which the event occurred.
      */
-    public void onEvent(String eventType, Point eventLocation) {
+    public void onEvent(Event event) {
         // Write your code here.
-        switch (eventType) {
+        switch (event.getType()) {
             case "water":
-                waterSubject.onEvent(eventType, eventLocation);
+                waterSubject.onEvent(event);
                 break;
             case "trade":
-                tradeSubject.onEvent(eventType, eventLocation);
+                tradeSubject.onEvent(event);
                 break;
             case "zombie":
-                zombieSubject.onEvent(eventType, eventLocation);
+                zombieSubject.onEvent(event);
                 break;
             default:
-                throw new RuntimeException("Unknown event " + eventType);
+                throw new RuntimeException("Unknown event " + event.getType());
         }
     }
 }

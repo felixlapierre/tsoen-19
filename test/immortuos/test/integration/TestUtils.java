@@ -5,6 +5,7 @@
 package immortuos.test.integration;
 
 import immortuos.solution.Application;
+import immortuos.utils.Event;
 import immortuos.utils.Point;
 import static org.junit.Assert.*;
 
@@ -19,40 +20,36 @@ public class TestUtils {
         this.app = app;
     }
 
-    public static void AssertHasEvent(FakeSurvivor survivor, String event, Point location) {
-        if (!HasEvent(survivor, event, location)) {
-            fail("Survivor at " + survivor.getLocation() + " did not recieve event " + event + " at " + location);
+    public static void AssertHasEvent(FakeSurvivor survivor, Event event) {
+        if (!HasEvent(survivor, event)) {
+            fail("Survivor at " + survivor.getLocation() + " did not recieve " + event);
         }
     }
     
-    public static void AssertDoesNotHaveEvent(FakeSurvivor survivor, String event, Point location) {
-        if(HasEvent(survivor, event, location)) {
-            fail("Survivor at " + survivor.getLocation() + " should not have recieved event " + event + " at " + location);
-        }
-    }
-    
-    public static void AssertDoesNotHaveEvent(FakeSurvivor survivor, String event) {
+    public static void AssertDoesNotHaveEvent(FakeSurvivor survivor, Event event) {
         if(HasEvent(survivor, event)) {
-            fail("Survivor at " + survivor.getLocation() + " should not have recieved any " + event + " events");
+            fail("Survivor at " + survivor.getLocation() + " should not have recieved " + event);
+        }
+    }
+    
+    public static void AssertDoesNotHaveEvent(FakeSurvivor survivor, String eventType) {
+        if(HasEvent(survivor, eventType)) {
+            fail("Survivor at " + survivor.getLocation() + " should not have recieved any " + eventType + " events");
         }
     }
 
-    private static boolean HasEvent(FakeSurvivor survivor, String event, Point location) {
-        if (survivor.events.size() != survivor.eventLocations.size()) {
-            throw new RuntimeException("FATAL: FakeSurvivor events and eventLocations did not match in size");
-        }
+    private static boolean HasEvent(FakeSurvivor survivor, Event event) {
         for (int i = 0; i < survivor.events.size(); i++) {
-            if (survivor.events.get(i).equalsIgnoreCase(event)
-                    && survivor.eventLocations.get(i).equals(location)) {
+            if (survivor.events.get(i).equals(event)) {
                 return true;
             }
         }
         return false;
     }
     
-    private static boolean HasEvent(FakeSurvivor survivor, String event) {
+    private static boolean HasEvent(FakeSurvivor survivor, String eventType) {
         for(int i = 0; i < survivor.events.size(); i++) {
-            if(survivor.events.get(i).equalsIgnoreCase(event)) {
+            if(survivor.events.get(i).getType().equalsIgnoreCase(eventType)) {
                 return true;
             }
         }

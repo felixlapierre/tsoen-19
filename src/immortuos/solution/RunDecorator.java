@@ -19,9 +19,9 @@ public class RunDecorator implements Survivor {
     }
 
     @Override
-    public void notify(String message, Point location) {
-        Point newLocation = RunLocation.get(wrapped.getLocation(), location, runDistance);
-        wrapped.notify("run", newLocation);
+    public void notify(Event event) {
+        Point newLocation = RunLocation.get(wrapped.getLocation(), event.getLocation(), runDistance);
+        wrapped.notify(new Event("run", newLocation));
     }
 
     @Override

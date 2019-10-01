@@ -15,7 +15,7 @@ public interface Survivor {
      * @param message The message indicating what event has occurred.
      * @param location The location associated with the event.
      */
-    public void notify(String message, Point location);
+    public void notify(Event event);
     
     public Point getLocation();
 }

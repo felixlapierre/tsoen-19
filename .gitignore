@@ -26,3 +26,6 @@ hs_err_pid*
 # Netbeans ignore
 nbproject/
 /dist/
+
+# LibreOffice ignore
+.~lock.*
