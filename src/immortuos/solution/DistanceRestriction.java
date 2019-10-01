@@ -27,6 +27,10 @@ public class DistanceRestriction implements Survivor {
     public Point getLocation() {
         return wrapped.getLocation();
     }
+    
+    public String getType() {
+        return wrapped.getType();
+    }
 
     public void notify(Event event) {
         if (Distance.get(wrapped.getLocation(), event.getLocation()) <= distance) {

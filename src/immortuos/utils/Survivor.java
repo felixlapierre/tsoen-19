@@ -18,4 +18,6 @@ public interface Survivor {
     public void notify(Event event);
     
     public Point getLocation();
+    
+    public String getType();
 }

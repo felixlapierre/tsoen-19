@@ -29,4 +29,8 @@ public class RunDecorator implements Survivor {
         return wrapped.getLocation();
     }
     
+    public String getType() {
+        return wrapped.getType();
+    }
+    
 }

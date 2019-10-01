@@ -1,7 +1,6 @@
 package immortuos.solution;
 
 import immortuos.utils.Survivor;
-import immortuos.utils.Point;
 import immortuos.utils.Event;
 
 /**
@@ -31,9 +30,9 @@ public class Application {
      * @param survivor The survivor to be added.
      * @param type The type of this survivor.
      */
-    public void registerSurvivor(Survivor survivor, String type) {
+    public void registerSurvivor(Survivor survivor) {
         // Write your code here.
-        switch (type) {
+        switch (survivor.getType()) {
             case "citizen":
                 tradeSubject.register(new DistanceRestriction(3.0, survivor));
                 zombieSubject.register(new DistanceRestriction(4.0, new RunDecorator(1.0, survivor)));
