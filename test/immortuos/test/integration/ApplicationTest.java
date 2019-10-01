@@ -84,7 +84,7 @@ public class ApplicationTest {
         Event waterEvent = new Event("water", new Point(15, 6));
         testApp.onEvent(waterEvent);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
     }
 
     // Water edge cases
@@ -99,8 +99,8 @@ public class ApplicationTest {
 
         testApp.onEvent(waterEvent);
 
-        utils.AssertHasEvent(someSurvivorOne, waterEvent);
-        utils.AssertHasEvent(someSurvivorTwo, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorOne, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorTwo, waterEvent);
     }
 
     @Test
@@ -116,9 +116,9 @@ public class ApplicationTest {
 
         testApp.onEvent(waterEvent);
 
-        utils.AssertHasEvent(someSurvivorOne, waterEvent);
-        utils.AssertHasEvent(someSurvivorTwo, waterEvent);
-        utils.AssertHasEvent(someSurvivorThree, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorOne, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorTwo, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorThree, waterEvent);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class ApplicationTest {
 
         testApp.onEvent(waterEvent);
 
-        utils.AssertHasEvent(someSurvivor, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivor, waterEvent);
     }
 
     @Test
@@ -142,7 +142,7 @@ public class ApplicationTest {
 
         testApp.onEvent(waterEvent);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
     }
 
     /**
@@ -157,7 +157,7 @@ public class ApplicationTest {
 
         testApp.onEvent(tradeEvent);
 
-        utils.AssertHasEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertHasEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -169,7 +169,7 @@ public class ApplicationTest {
 
         testApp.onEvent(tradeEvent);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -181,7 +181,7 @@ public class ApplicationTest {
 
         testApp.onEvent(tradeEvent);
 
-        utils.AssertHasEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertHasEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -193,7 +193,7 @@ public class ApplicationTest {
 
         testApp.onEvent(tradeEvent);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -205,7 +205,7 @@ public class ApplicationTest {
 
         testApp.onEvent(tradeEvent);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -221,9 +221,9 @@ public class ApplicationTest {
 
         testApp.onEvent(tradeEvent);
 
-        utils.AssertHasEvent(citizen, tradeEvent);
-        utils.AssertDoesNotHaveEvent(soldier, tradeEvent);
-        utils.AssertHasEvent(merchant, tradeEvent);
+        TestUtils.AssertHasEvent(citizen, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(soldier, tradeEvent);
+        TestUtils.AssertHasEvent(merchant, tradeEvent);
     }
 
     /**
@@ -238,7 +238,7 @@ public class ApplicationTest {
 
         testApp.onEvent(zombieEvent);
 
-        utils.AssertHasEvent(soldier, zombieEvent);
+        TestUtils.AssertHasEvent(soldier, zombieEvent);
     }
 
     @Test
@@ -250,7 +250,7 @@ public class ApplicationTest {
 
         testApp.onEvent(zombieEvent);
 
-        utils.AssertDoesNotHaveEvent(soldier, zombieEvent);
+        TestUtils.AssertDoesNotHaveEvent(soldier, zombieEvent);
     }
 
     @Test
@@ -263,7 +263,7 @@ public class ApplicationTest {
 
         testApp.onEvent(zombieEvent);
 
-        utils.AssertHasEvent(citizen, runEvent);
+        TestUtils.AssertHasEvent(citizen, runEvent);
     }
 
     @Test
@@ -275,7 +275,7 @@ public class ApplicationTest {
 
         testApp.onEvent(zombieEvent);
 
-        utils.AssertDoesNotHaveEvent(citizen, "run");
+        TestUtils.AssertDoesNotHaveEvent(citizen, "run");
     }
 
     @Test
@@ -288,7 +288,7 @@ public class ApplicationTest {
 
         testApp.onEvent(zombieEvent);
 
-        utils.AssertHasEvent(merchant, runEvent);
+        TestUtils.AssertHasEvent(merchant, runEvent);
     }
 
     @Test
@@ -299,7 +299,7 @@ public class ApplicationTest {
         FakeSurvivor merchant = utils.createAndRegisterSurvivor("merchant", survivorLoc);
 
         testApp.onEvent(zombieEvent);
-        utils.AssertDoesNotHaveEvent(merchant, "zombie");
+        TestUtils.AssertDoesNotHaveEvent(merchant, "zombie");
     }
 
     @Test
@@ -311,7 +311,7 @@ public class ApplicationTest {
         FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
         testApp.onEvent(zombieEvent);
-        utils.AssertHasEvent(citizen, runEvent);
+        TestUtils.AssertHasEvent(citizen, runEvent);
     }
 
     @Test
@@ -323,7 +323,7 @@ public class ApplicationTest {
         FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
         testApp.onEvent(zombieEvent);
-        utils.AssertHasEvent(citizen, runEvent);
+        TestUtils.AssertHasEvent(citizen, runEvent);
     }
 
     /**
@@ -349,7 +349,7 @@ public class ApplicationTest {
         testApp.onEvent(waterEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", someLoc);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
     }
 
     @Test
@@ -363,8 +363,8 @@ public class ApplicationTest {
         FakeSurvivor someSurvivorOne = utils.createAndRegisterSurvivor("citizen", survivorLoc1);
         FakeSurvivor someSurvivorTwo = utils.createAndRegisterSurvivor("citizen", survivorLoc2);
 
-        utils.AssertHasEvent(someSurvivorOne, waterEvent);
-        utils.AssertHasEvent(someSurvivorTwo, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorOne, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorTwo, waterEvent);
     }
 
     @Test
@@ -380,9 +380,9 @@ public class ApplicationTest {
         FakeSurvivor someSurvivorTwo = utils.createAndRegisterSurvivor("soldier", survivorLoc2);
         FakeSurvivor someSurvivorThree = utils.createAndRegisterSurvivor("merchant", survivorLoc3);
 
-        utils.AssertHasEvent(someSurvivorOne, waterEvent);
-        utils.AssertHasEvent(someSurvivorTwo, waterEvent);
-        utils.AssertHasEvent(someSurvivorThree, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorOne, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorTwo, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivorThree, waterEvent);
     }
 
     @Test
@@ -393,7 +393,7 @@ public class ApplicationTest {
         testApp.onEvent(waterEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertHasEvent(someSurvivor, waterEvent);
+        TestUtils.AssertHasEvent(someSurvivor, waterEvent);
     }
 
     @Test
@@ -404,7 +404,7 @@ public class ApplicationTest {
         testApp.onEvent(waterEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, waterEvent);
     }
 
     /**
@@ -418,7 +418,7 @@ public class ApplicationTest {
         testApp.onEvent(tradeEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertHasEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertHasEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -429,7 +429,7 @@ public class ApplicationTest {
         testApp.onEvent(tradeEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -440,7 +440,7 @@ public class ApplicationTest {
         testApp.onEvent(tradeEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("merchant", survivorLoc);
 
-        utils.AssertHasEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertHasEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -451,7 +451,7 @@ public class ApplicationTest {
         testApp.onEvent(tradeEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("merchant", survivorLoc);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -462,7 +462,7 @@ public class ApplicationTest {
         testApp.onEvent(tradeEvent);
         FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("soldier", survivorLoc);
 
-        utils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(someSurvivor, tradeEvent);
     }
 
     @Test
@@ -478,9 +478,9 @@ public class ApplicationTest {
         FakeSurvivor soldier = utils.createAndRegisterSurvivor("soldier", survivorLoc2);
         FakeSurvivor merchant = utils.createAndRegisterSurvivor("merchant", survivorLoc3);
 
-        utils.AssertHasEvent(citizen, tradeEvent);
-        utils.AssertDoesNotHaveEvent(soldier, tradeEvent);
-        utils.AssertHasEvent(merchant, tradeEvent);
+        TestUtils.AssertHasEvent(citizen, tradeEvent);
+        TestUtils.AssertDoesNotHaveEvent(soldier, tradeEvent);
+        TestUtils.AssertHasEvent(merchant, tradeEvent);
     }
 
     /**
@@ -494,7 +494,7 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor soldier = utils.createAndRegisterSurvivor("soldier", survivorLoc);
 
-        utils.AssertHasEvent(soldier, zombieEvent);
+        TestUtils.AssertHasEvent(soldier, zombieEvent);
     }
 
     @Test
@@ -505,7 +505,7 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor soldier = utils.createAndRegisterSurvivor("soldier", survivorLoc);
 
-        utils.AssertDoesNotHaveEvent(soldier, zombieEvent);
+        TestUtils.AssertDoesNotHaveEvent(soldier, zombieEvent);
     }
 
     @Test
@@ -517,7 +517,7 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertHasEvent(citizen, runEvent);
+        TestUtils.AssertHasEvent(citizen, runEvent);
     }
 
     @Test
@@ -528,7 +528,7 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertDoesNotHaveEvent(citizen, "run");
+        TestUtils.AssertDoesNotHaveEvent(citizen, "run");
     }
 
     @Test
@@ -540,7 +540,7 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor merchant = utils.createAndRegisterSurvivor("merchant", survivorLoc);
 
-        utils.AssertHasEvent(merchant, runEvent);
+        TestUtils.AssertHasEvent(merchant, runEvent);
     }
 
     @Test
@@ -551,7 +551,7 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor merchant = utils.createAndRegisterSurvivor("merchant", survivorLoc);
 
-        utils.AssertDoesNotHaveEvent(merchant, "zombie");
+        TestUtils.AssertDoesNotHaveEvent(merchant, "zombie");
     }
 
     @Test
@@ -563,7 +563,7 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertHasEvent(citizen, runEvent);
+        TestUtils.AssertHasEvent(citizen, runEvent);
     }
 
     @Test
@@ -575,6 +575,6 @@ public class ApplicationTest {
         testApp.onEvent(zombieEvent);
         FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
 
-        utils.AssertHasEvent(citizen, runEvent);
+        TestUtils.AssertHasEvent(citizen, runEvent);
     }
 }
