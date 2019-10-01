@@ -23,10 +23,7 @@ public class Subject {
     
     public void onEvent(String message, Point location) {
         observers.forEach((survivor) -> {
-            double distance = Distance.get(survivor.getLocation(), location);
-            if(distance <= 10.0) {
-                survivor.notify(message, location);
-            }
+            survivor.notify(message, location);
         });
     }
 }

@@ -9,6 +9,7 @@ import immortuos.utils.Point;
 public class Application {
 
     Subject waterSubject;
+    Subject tradeSubject;
 
     /**
      * Create a new application. You must not change this constructor's
@@ -17,6 +18,7 @@ public class Application {
     public Application() {
         // You may write code here.
         waterSubject = new Subject();
+        tradeSubject = new Subject();
     }
 
     /**
@@ -28,7 +30,15 @@ public class Application {
      */
     public void registerSurvivor(Survivor survivor, String type) {
         // Write your code here.
-        waterSubject.register(survivor);
+        switch (type) {
+            case "citizen":
+                tradeSubject.register(new DistanceRestriction(survivor, 3.0));
+                break;
+            case "merchant":
+                tradeSubject.register(new DistanceRestriction(survivor, 5.0));
+        }
+        waterSubject.register(new DistanceRestriction(survivor, 5.0));
+        
         survivor.notify("registered", survivor.getLocation());
     }
 
@@ -44,6 +54,9 @@ public class Application {
         switch (eventType) {
             case "water":
                 waterSubject.onEvent(eventType, eventLocation);
+                break;
+            case "trade":
+                tradeSubject.onEvent(eventType, eventLocation);
                 break;
             default:
                 throw new RuntimeException("Unknown event " + eventType);

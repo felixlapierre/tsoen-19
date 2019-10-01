@@ -15,12 +15,15 @@ import immortuos.utils.*;
  * @author Felix
  */
 public class ApplicationTest {
+    private Application testApp;
+    private TestUtils utils;
     
     public ApplicationTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+
     }
     
     @AfterClass
@@ -29,6 +32,8 @@ public class ApplicationTest {
     
     @Before
     public void setUp() {
+        testApp = new Application();
+        utils = new TestUtils(testApp);
     }
     
     @After
@@ -37,18 +42,11 @@ public class ApplicationTest {
 
     @Test
     public void testRegisterSurvivor() {
-        Application app = new Application();
-        
-        Point someLoc = new Point(5, 5);
-        String someSurvivorType = "citizen";
-        
-        FakeSurvivor someSurvivor = new FakeSurvivor(someLoc);
-        
-        app.registerSurvivor(someSurvivor, someSurvivorType);
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", new Point(5, 5));
         
         assertEquals(1, someSurvivor.events.size());
         assertEquals("registered", someSurvivor.events.get(0));
-        assertEquals(someLoc, someSurvivor.eventLocations.get(0));
+        assertEquals(someSurvivor.getLocation(), someSurvivor.eventLocations.get(0));
     }
     
     @Test
@@ -61,40 +59,140 @@ public class ApplicationTest {
         } catch(Exception e) { }
     }
     
+    /**
+     * Feature 2: Water sources
+     */
+    
     @Test
     public void testWaterFound() {
-        Application app = new Application();
-        
         Point someLoc = new Point(5, 5);
-        String someSurvivorType = "citizen";
-        
-        FakeSurvivor someSurvivor = new FakeSurvivor(someLoc);
-        
-        app.registerSurvivor(someSurvivor, someSurvivorType);
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", someLoc);
         
         Point waterLocation = new Point(7, 8);
         String waterEvent = "water";
-        app.onEvent(waterEvent, waterLocation);
+        testApp.onEvent(waterEvent, waterLocation);
 
         TestUtils.AssertHasEvent(someSurvivor, waterEvent, waterLocation);
     }
     
     @Test
     public void testWaterTooFar() {
-        Application app = new Application();
-        
         Point someLoc = new Point(5, 5);
-        String someSurvivorType = "citizen";
-        
-        FakeSurvivor someSurvivor = new FakeSurvivor(someLoc);
-        
-        app.registerSurvivor(someSurvivor, someSurvivorType);
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", someLoc);
         
         Point waterLocation = new Point(15, 6);
         String waterEvent = "water";
-        app.onEvent(waterEvent, waterLocation);
+        testApp.onEvent(waterEvent, waterLocation);
 
-        TestUtils.AssertDoesNotHaveEvent(someSurvivor, waterEvent, waterLocation);
+        utils.AssertDoesNotHaveEvent(someSurvivor, waterEvent, waterLocation);
     }
     
+    // Water edge cases
+    @Test
+    public void testWaterTwoSurvivorsClose() {
+        Point survivorLoc1 = new Point(5, 5);
+        Point survivorLoc2 = new Point(10, 7);
+        Point waterLoc = new Point(8, 6);
+        
+        FakeSurvivor someSurvivorOne = utils.createAndRegisterSurvivor("citizen", survivorLoc1);
+        FakeSurvivor someSurvivorTwo = utils.createAndRegisterSurvivor("citizen", survivorLoc2);
+        
+        testApp.onEvent("water", waterLoc);
+        
+        utils.AssertHasEvent(someSurvivorOne, "water", waterLoc);
+        utils.AssertHasEvent(someSurvivorTwo, "water", waterLoc);
+    }
+    
+    @Test
+    public void testWaterAllSurvivorTypes() {
+        Point survivorLoc1 = new Point(5, 5);
+        Point survivorLoc2 = new Point(10, 7);
+        Point survivorLoc3 = new Point(6, 10);
+        Point waterLoc = new Point(8, 6);
+        
+        FakeSurvivor someSurvivorOne = utils.createAndRegisterSurvivor("citizen", survivorLoc1);
+        FakeSurvivor someSurvivorTwo = utils.createAndRegisterSurvivor("soldier", survivorLoc2);
+        FakeSurvivor someSurvivorThree = utils.createAndRegisterSurvivor("merchant", survivorLoc3);
+        
+        testApp.onEvent("water", waterLoc);
+        
+        utils.AssertHasEvent(someSurvivorOne, "water", waterLoc);
+        utils.AssertHasEvent(someSurvivorTwo, "water", waterLoc);
+        utils.AssertHasEvent(someSurvivorThree, "water", waterLoc);
+    }
+    
+    @Test
+    public void testWaterExactlyCloseEnough() {
+        Point survivorLoc = new Point(5, 5);
+        Point waterLoc = new Point(10, 5);
+        
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
+        
+        testApp.onEvent("water", waterLoc);
+        
+        utils.AssertHasEvent(someSurvivor, "water", waterLoc);
+    }
+    
+    @Test
+    public void testWaterExactlyTooFar() {
+        Point survivorLoc = new Point(5, 5);
+        Point waterLoc = new Point(10, 6);
+        
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
+        
+        testApp.onEvent("water", waterLoc);
+        
+        utils.AssertDoesNotHaveEvent(someSurvivor, "water", waterLoc);
+    }
+    
+    /**
+     * Feature 3: Trading spots
+     */
+    @Test
+    public void testTradeCloseToCitizen() {
+        Point survivorLoc = new Point(5, 5);
+        Point tradeLoc = new Point(5, 8);
+        
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
+        
+        testApp.onEvent("trade", tradeLoc);
+        
+        utils.AssertHasEvent(someSurvivor, "trade", tradeLoc);
+    }
+    
+    @Test
+    public void testTradeFarFromCitizen() {
+        Point survivorLoc = new Point(5, 5);
+        Point tradeLoc = new Point(6, 8);
+        
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("citizen", survivorLoc);
+        
+        testApp.onEvent("trade", tradeLoc);
+        
+        utils.AssertDoesNotHaveEvent(someSurvivor, "trade", tradeLoc);
+    }
+    
+    @Test
+    public void testTradeCloseToMerchant() {
+        Point survivorLoc = new Point(5, 5);
+        Point tradeLoc = new Point(5, 10);
+        
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("merchant", survivorLoc);
+        
+        testApp.onEvent("trade", tradeLoc);
+        
+        utils.AssertHasEvent(someSurvivor, "trade", tradeLoc);
+    }
+    
+    @Test
+    public void testTradeFarFromMerchant() {
+        Point survivorLoc = new Point(5, 5);
+        Point tradeLoc = new Point(6, 10);
+        
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("merchant", survivorLoc);
+        
+        testApp.onEvent("trade", tradeLoc);
+        
+        utils.AssertDoesNotHaveEvent(someSurvivor, "trade", tradeLoc);
+    }
 }

@@ -4,6 +4,7 @@
  */
 package immortuos.test.integration;
 
+import immortuos.solution.Application;
 import immortuos.utils.Point;
 import static org.junit.Assert.*;
 
@@ -12,6 +13,11 @@ import static org.junit.Assert.*;
  * @author Felix
  */
 public class TestUtils {
+    private Application app;
+    
+    public TestUtils(Application app) {
+        this.app = app;
+    }
 
     public static void AssertHasEvent(FakeSurvivor survivor, String event, Point location) {
         if (!HasEvent(survivor, event, location)) {
@@ -36,5 +42,11 @@ public class TestUtils {
             }
         }
         return false;
+    }
+    
+    public FakeSurvivor createAndRegisterSurvivor(String type, Point location) {
+        FakeSurvivor s = new FakeSurvivor(location);
+        app.registerSurvivor(s, type);
+        return s;
     }
 }
