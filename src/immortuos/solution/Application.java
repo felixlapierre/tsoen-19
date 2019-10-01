@@ -10,6 +10,7 @@ public class Application {
 
     Subject waterSubject;
     Subject tradeSubject;
+    Subject zombieSubject;
 
     /**
      * Create a new application. You must not change this constructor's
@@ -19,6 +20,7 @@ public class Application {
         // You may write code here.
         waterSubject = new Subject();
         tradeSubject = new Subject();
+        zombieSubject = new Subject();
     }
 
     /**
@@ -32,13 +34,19 @@ public class Application {
         // Write your code here.
         switch (type) {
             case "citizen":
-                tradeSubject.register(new DistanceRestriction(survivor, 3.0));
+                tradeSubject.register(new DistanceRestriction(3.0, survivor));
+                zombieSubject.register(new DistanceRestriction(4.0, new RunDecorator(1.0, survivor)));
                 break;
             case "merchant":
-                tradeSubject.register(new DistanceRestriction(survivor, 5.0));
+                tradeSubject.register(new DistanceRestriction(5.0, survivor));
+                zombieSubject.register(new DistanceRestriction(4.0, new RunDecorator(1.0, survivor)));
+                break;
+            case "soldier":
+                zombieSubject.register(new DistanceRestriction(7.0, survivor));
+                break;
         }
-        waterSubject.register(new DistanceRestriction(survivor, 5.0));
-        
+        waterSubject.register(new DistanceRestriction(5.0, survivor));
+
         survivor.notify("registered", survivor.getLocation());
     }
 
@@ -57,6 +65,9 @@ public class Application {
                 break;
             case "trade":
                 tradeSubject.onEvent(eventType, eventLocation);
+                break;
+            case "zombie":
+                zombieSubject.onEvent(eventType, eventLocation);
                 break;
             default:
                 throw new RuntimeException("Unknown event " + eventType);

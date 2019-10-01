@@ -18,7 +18,7 @@ public class DistanceRestriction implements Survivor {
     private Survivor wrapped;
     private final double distance;
 
-    public DistanceRestriction(Survivor survivor, double distance) {
+    public DistanceRestriction(double distance, Survivor survivor) {
         wrapped = survivor;
         this.distance = distance;
     }

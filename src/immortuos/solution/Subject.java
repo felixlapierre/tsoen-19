@@ -5,7 +5,6 @@
 package immortuos.solution;
 import java.util.ArrayList;
 import immortuos.utils.*;
-import immortuos.solution.*;
 
 /**
  *

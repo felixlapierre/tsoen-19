@@ -104,7 +104,7 @@ public class ApplicationTest {
     }
     
     @Test
-    public void testWaterAllSurvivorTypes() {
+    public void testWaterThreeSurvivorTypes() {
         Point survivorLoc1 = new Point(5, 5);
         Point survivorLoc2 = new Point(10, 7);
         Point survivorLoc3 = new Point(6, 10);
@@ -194,5 +194,106 @@ public class ApplicationTest {
         testApp.onEvent("trade", tradeLoc);
         
         utils.AssertDoesNotHaveEvent(someSurvivor, "trade", tradeLoc);
+    }
+    
+    @Test
+    public void testTradeDoesNotNotifySoldier() {
+        Point survivorLoc = new Point(5, 5);
+        Point tradeLoc = new Point(5, 6);
+        
+        FakeSurvivor someSurvivor = utils.createAndRegisterSurvivor("soldier", survivorLoc);
+        
+        testApp.onEvent("trade", tradeLoc);
+        
+        utils.AssertDoesNotHaveEvent(someSurvivor, "trade", tradeLoc);
+    }
+    
+    @Test
+    public void testTradeThreeSurvivorTypes() {
+        Point survivorLoc1 = new Point(6, 5);
+        Point survivorLoc2 = new Point(10, 7);
+        Point survivorLoc3 = new Point(6, 10);
+        Point tradeLoc = new Point(8, 6);
+        
+        FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc1);
+        FakeSurvivor soldier = utils.createAndRegisterSurvivor("soldier", survivorLoc2);
+        FakeSurvivor merchant = utils.createAndRegisterSurvivor("merchant", survivorLoc3);
+        
+        testApp.onEvent("trade", tradeLoc);
+        
+        utils.AssertHasEvent(citizen, "trade", tradeLoc);
+        utils.AssertDoesNotHaveEvent(soldier, "trade", tradeLoc);
+        utils.AssertHasEvent(merchant, "trade", tradeLoc);
+    }
+    
+    /**
+     * Feature 4: Zombie spotted
+     */
+    
+    @Test
+    public void testZombieCloseSoldier() {
+        Point survivorLoc = new Point(5, 5);
+        Point zombieLoc = new Point(12, 5);
+        
+        FakeSurvivor soldier = utils.createAndRegisterSurvivor("soldier", survivorLoc);
+        
+        testApp.onEvent("zombie", zombieLoc);
+        
+        utils.AssertHasEvent(soldier, "zombie", zombieLoc);
+    }
+    
+    @Test
+    public void testZombieFarSoldier() {
+        Point survivorLoc = new Point(5, 5);
+        Point zombieLoc = new Point(12, 6);
+        
+        FakeSurvivor soldier = utils.createAndRegisterSurvivor("soldier", survivorLoc);
+        
+        testApp.onEvent("zombie", zombieLoc);
+        
+        utils.AssertDoesNotHaveEvent(soldier, "zombie");
+    }
+    
+    @Test
+    public void testZombieCloseCitizen() {
+        Point survivorLoc = new Point(5, 5);
+        Point zombieLoc = new Point(9, 5);
+        Point runLoc = new Point(4, 5);
+        
+        FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
+        
+        testApp.onEvent("zombie", zombieLoc);
+        
+        utils.AssertHasEvent(citizen, "run", runLoc);
+    }
+    
+    @Test
+    public void testZombieFarCitizen() {
+        Point survivorLoc = new Point(5, 5);
+        Point zombieLoc = new Point(9, 4);
+        
+        FakeSurvivor citizen = utils.createAndRegisterSurvivor("citizen", survivorLoc);
+        
+        testApp.onEvent("zombie", zombieLoc);
+        
+        utils.AssertDoesNotHaveEvent(citizen, "run");
+    }
+    
+    @Test
+    public void testZombieCloseMerchant() {
+        Point survivorLoc = new Point(5, 5);
+        Point zombieLoc = new Point(1, 5);
+        Point runLoc = new Point(6, 5);
+        
+        FakeSurvivor merchant = utils.createAndRegisterSurvivor("merchant", survivorLoc);
+        
+        testApp.onEvent("zombie", zombieLoc);
+        
+        utils.AssertHasEvent(merchant, "run", runLoc);
+    }
+    
+    @Test
+    public void testZombieFarMerchant() {
+        
     }
 }

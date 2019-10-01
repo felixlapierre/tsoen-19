@@ -5,8 +5,13 @@
 package immortuos.utils;
 
 public class Point {
-    public int x;
-    public int y;
+    public double x;
+    public double y;
+    
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
     
     public Point(int x, int y) {
         this.x = x;
@@ -22,8 +27,10 @@ public class Point {
     public boolean equals(Object o) {
         if(o instanceof Point) {
             Point p = (Point)o;
-            return this.x == p.x
-                    && this.y == p.y;
+            return this.x < p.x + 0.001
+                    && this.x > p.x - 0.001
+                    && this.y < p.y + 0.001
+                    && this.y > p.y - 0.001;
         }
         return false;
     }
