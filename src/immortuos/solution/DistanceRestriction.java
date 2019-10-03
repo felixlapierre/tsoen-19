@@ -24,6 +24,10 @@ public class DistanceRestriction implements Survivor {
         this.distance = distance;
     }
 
+    DistanceRestriction() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Point getLocation() {
         return wrapped.getLocation();
     }

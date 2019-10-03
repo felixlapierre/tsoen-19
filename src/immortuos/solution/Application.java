@@ -2,12 +2,14 @@ package immortuos.solution;
 
 import immortuos.utils.Survivor;
 import immortuos.utils.Event;
+import java.util.HashMap;
 
 /**
  * The main application for the solution. Write your code here.
  */
 public class Application {
 
+    HashMap<String, Subject> subjects;
     Subject waterSubject;
     Subject tradeSubject;
     Subject zombieSubject;
@@ -18,9 +20,15 @@ public class Application {
      */
     public Application() {
         // You may write code here.
+        subjects = new HashMap<String, Subject>();
+
         waterSubject = new Subject();
         tradeSubject = new Subject();
         zombieSubject = new Subject();
+
+        subjects.put("water", waterSubject);
+        subjects.put("trade", tradeSubject);
+        subjects.put("zombie", zombieSubject);
     }
 
     /**
@@ -59,18 +67,10 @@ public class Application {
      */
     public void onEvent(Event event) {
         // Write your code here.
-        switch (event.getType()) {
-            case "water":
-                waterSubject.onEvent(event);
-                break;
-            case "trade":
-                tradeSubject.onEvent(event);
-                break;
-            case "zombie":
-                zombieSubject.onEvent(event);
-                break;
-            default:
-                throw new RuntimeException("Unknown event " + event.getType());
+        if (subjects.containsKey(event.getType())) {
+            subjects.get(event.getType()).onEvent(event);
+        } else {
+            throw new RuntimeException("Unknown event " + event.getType());
         }
     }
 }
