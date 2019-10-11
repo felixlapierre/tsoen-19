@@ -11,11 +11,11 @@ import immortuos.utils.*;
  */
 public class RunLocation {
     public static Point get(Point survivorLoc, Point eventLoc, double runDistance) {
-        double deltaX = survivorLoc.x - eventLoc.x;
-        double deltaY = survivorLoc.y - eventLoc.y;
+        double deltaX = survivorLoc.getX() - eventLoc.getX();
+        double deltaY = survivorLoc.getY()- eventLoc.getY();
         double magnitude = Distance.get(survivorLoc, eventLoc);
         deltaX = deltaX / magnitude * runDistance;
         deltaY = deltaY / magnitude * runDistance;
-        return new Point(survivorLoc.x + deltaX, survivorLoc.y  + deltaY);
+        return new Point(survivorLoc.getX() + deltaX, survivorLoc.getY()  + deltaY);
     }
 }

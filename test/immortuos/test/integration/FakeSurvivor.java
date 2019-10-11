@@ -23,7 +23,7 @@ public class FakeSurvivor implements Survivor {
      * @param location The location of the survivor.
      */
     public FakeSurvivor(Point location, String type) {
-        this.location = new Point(location.x, location.y);
+        this.location = new Point(location);
         this.events = new ArrayList<Event>();
         this.type = type;
     }
@@ -33,7 +33,7 @@ public class FakeSurvivor implements Survivor {
     }
     
     public Point getLocation() {
-        return new Point(this.location.x, this.location.y);
+        return new Point(this.location);
     }
     
     public String getType() {

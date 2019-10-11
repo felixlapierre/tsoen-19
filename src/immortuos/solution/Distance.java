@@ -10,8 +10,8 @@ import immortuos.utils.*;
  */
 public class Distance {
     public static double get(Point p1, Point p2) {
-        double deltaX = p2.x - p1.x;
-        double deltaY = p2.y - p1.y;
+        double deltaX = p2.getX() - p1.getX();
+        double deltaY = p2.getY() - p1.getY();
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 }

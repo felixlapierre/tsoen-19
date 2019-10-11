@@ -4,9 +4,12 @@
  */
 package immortuos.utils;
 
+/**
+ * Point is an immutable data object representing a point on a 2D plane.
+ */
 public class Point {
-    public double x;
-    public double y;
+    private double x;
+    private double y;
     
     public Point(double x, double y) {
         this.x = x;
@@ -21,6 +24,14 @@ public class Point {
     public Point(Point p) {
         this.x = p.x;
         this.y = p.y;
+    }
+    
+    public double getX() {
+        return x;
+    }
+    
+    public double getY() {
+        return y;
     }
     
     @Override
