@@ -57,7 +57,7 @@ public class TestUtils {
     }
     
     public FakeSurvivor createAndRegisterSurvivor(String type, Point location) {
-        FakeSurvivor s = new FakeSurvivor(location, type);
+        FakeSurvivor s = new FakeSurvivor(type, location);
         app.registerSurvivor(s);
         return s;
     }

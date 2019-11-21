@@ -5,13 +5,12 @@
 package immortuos.utils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 /**
- *
+ * Helper class to load configuration from the application.properties file.
  * @author Felix
  */
 public class Config {
