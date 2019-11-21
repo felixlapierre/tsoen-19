@@ -25,7 +25,7 @@ public class Application {
      */
     public void registerSurvivor(Survivor survivor) {
         // Write your code here.
-        
+
     }
 
     /**

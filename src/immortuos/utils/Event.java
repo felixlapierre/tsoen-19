@@ -10,8 +10,8 @@ package immortuos.utils;
  */
 public class Event {
 
-    private String type;
-    private Point location;
+    private final String type;
+    private final Point location;
 
     public Event(String type, Point location) {
         this.type = type;
